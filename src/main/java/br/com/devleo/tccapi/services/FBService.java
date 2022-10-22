@@ -1,5 +1,6 @@
 package br.com.devleo.tccapi.services;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -24,6 +25,7 @@ public class FBService {
             Map<String, Object> values = new HashMap<>();
             values.put("valueRain", arduino.getValueRain());
             values.put("valueWater", arduino.getValueWater());
+            values.put("dtUpdate", new Timestamp(System.currentTimeMillis()));
             ApiFuture<WriteResult> collectionFuture = dbfire.collection("arduino").document(arduino.getId())
                     .update(values);
             try {
